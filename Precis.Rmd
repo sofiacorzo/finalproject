@@ -1,0 +1,30 @@
+---
+title: "Precis"
+author: "Sofía Corzo"
+date: "10/19/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r include = FALSE, warning = FALSE}
+library(haven)
+library(dplyr)
+PCJ_dataset <- read_dta("~/Downloads/PCJ dataset - Binningsbø et al JPR_49(5) (2).dta")
+```
+
+For my final project, I am planning to use a [dataset on post-conflict justice (PCJ)](http://www.justice-data.com/pcj-dataset), compiled by the [Peace Research Institute in Oslo](https://www.prio.org/). The data evaluates forms of post-conflict transitional justice (such as trials, truth commissions, reparations, etc.) as well as the conflict's location, intensity, and details on the transitional justice (TJ) mechanisms implemented. While the data has been explored somewhat (see [this paper](http://journals.sagepub.com.ezp-prod1.hul.harvard.edu/doi/abs/10.1177/0022343312450886) for some background information), I want to use this as part of a "visualizing transitional justice" project of sorts. I think the data is also interesting because it includes a combination of factor variables (such as characteristics of trials) as well as numeric variables (such as length of a conflict). 
+
+As for the data itself, here are some summary statistics:
+
+Number of observations: 357
+
+Number of countries/locations (as some of the conflicts involved state separations): 111
+
+```{r warning = FALSE, include = FALSE}
+unique_countries <- PCJ_dataset %>%
+  group_by(location) %>%
+  count(location)
+```
