@@ -15,6 +15,15 @@ The PCJ dataset has been coded very specifically, so I recommend anyone that wan
 reckoned following periods of conflict, which aren't included here, such as memorials, certain works of art, 
 public service works, and more. This app is not meant to be exhaustive on all actions inspired by the ideals usually espoused in transitional justice, or all actions by civil society and government to deal with a difficult past. Most importantly, this app is not meant to be taken as a way to explore the causal relationships between a conflict’s characteristics and its PCJ mechanisms, but to make the most usual PCJ mechanisms easier to identify, explore, and use in other analyses.
 
+###Data Sources
+
+I have used the [Post-Conflict Justice (PCJ) Dataset]("http://www.justice-data.com/pcj-dataset"), created by the Peace Research Institute in Oslo, as it is the most thorough and rigorously coded data source available, 
+and the dataset has been used in dozens of articles in the [Journal of Peace Research]("https://journals.sagepub.com/home/jpr"), a major journal regarding peace and conflict studies, as well as transitional justice."
+
+##Further Reading
+
+For further information on transitional justice, consult the [International Center for Transitional Justice]("https://www.ictj.org/about/transitional-justice"), the", [Rule of Law Information] ( "https://www.ohchr.org/EN/Issues/RuleOfLaw/Pages/RuleOfLawIndex.aspx"), from the UN Office of the High Commissioner for Human Rights, and the [Journal on Mass Conflict and Resistance]("http://www.sciencespo.fr/mass-violence-war-massacre-resistance/fr/document/transitional-justice-new-discipline-human-rights-0"), from Paris' SciencesPo.
+
 ###Link to Shiny app & Instructions
 
 To use [this app](https://sofia-corzo.shinyapps.io/PCJ_app/), navigate to any of the selections on the sidebar and then use the different input options to render a data table.Once you have selected all the parameters you want, use the 'Download' button to download a data table with the specificed parameters.
