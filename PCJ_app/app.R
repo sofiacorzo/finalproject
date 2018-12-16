@@ -253,7 +253,7 @@ server <- function(input, output) {
     data %>%
       rename(start_year = conflict_episode_begins,
              end_year = conflict_episode_ends) %>%
-      select(start_year, end_year, territory, government, opposition)})
+      select(start_year, end_year, location, government, opposition)})
    
    output$download_trial <- downloadHandler("trials.csv", content = function(file){
      data <- trials_data
