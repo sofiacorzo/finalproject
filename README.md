@@ -1,4 +1,5 @@
 #Post-Conflict Transitional Justice Mechanisms, 1946-2006
+
 ####Sofía Corzo
 
 ###Motivation
@@ -22,7 +23,7 @@ and the dataset has been used in dozens of articles in the [Journal of Peace Res
 
 ##Further Reading
 
-For further information on transitional justice, consult the [International Center for Transitional Justice]("https://www.ictj.org/about/transitional-justice"), the", [Rule of Law Information] ( "https://www.ohchr.org/EN/Issues/RuleOfLaw/Pages/RuleOfLawIndex.aspx"), from the UN Office of the High Commissioner for Human Rights, and the [Journal on Mass Conflict and Resistance]("http://www.sciencespo.fr/mass-violence-war-massacre-resistance/fr/document/transitional-justice-new-discipline-human-rights-0"), from Paris' SciencesPo.
+For further information on transitional justice, consult the [International Center for Transitional Justice]("https://www.ictj.org/about/transitional-justice"), the [Rule of Law Information]("https://www.ohchr.org/EN/Issues/RuleOfLaw/Pages/RuleOfLawIndex.aspx"), from the UN Office of the High Commissioner for Human Rights, and the [Journal on Mass Conflict and Resistance]("http://www.sciencespo.fr/mass-violence-war-massacre-resistance/fr/document/transitional-justice-new-discipline-human-rights-0"), from Paris' SciencesPo.
 
 ###Link to Shiny app & Instructions
 
