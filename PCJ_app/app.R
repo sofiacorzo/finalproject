@@ -12,14 +12,17 @@ library(haven)
 library(rsconnect)
 library(tidyverse)
 
-# All RDS files can be accessed on the "data" folder on the original github, where this shiny app file is also located.
+# All RDS files can be accessed on the "data" folder on the original github,
+# where this shiny app file is also located.
 
 all_data <- read_rds("PCJ_ALL_clean.rds")
 trials_data <- read_rds("trials.rds")
 
 
 ui <- dashboardPage(
-   
+
+############################# APPLICATION TITLE AND SIDEBARS ##################################
+
    # Application title
    dashboardHeader(title = "Post-Conflict Transitional Justice Mechanisms, 1946 - 2006",
                    titleWidth = 570),
@@ -47,6 +50,14 @@ ui <- dashboardPage(
    
    dashboardBody(
      tabItems(
+       
+##################################### ABOUT THIS APPLICATION ############################################
+
+ # The purpose of the "About the Application" tab is to provide essential
+ # information on what the data is describing. Unless you are a transitional
+ # justice scholar, a lot of the terms in the subsequent tabs can be confusing /
+ # unknown, so I thought it would be good to add the extra information.
+       
        # About application tab
        tabItem(tabName = "about_app",
        fluidRow(box(
@@ -84,12 +95,15 @@ fluidRow(box(
   status = "warning",
   solidHeader = FALSE, "The PCJ dataset has been coded very specifically, so I recommend anyone that wants to explore this dataset 
   further to read the", a("PCJ Codebook", href = "http://www.justice-data.com/pcj-dataset/PCJ%20codebook%20-%20Binningsb%C3%B8%20et%20al%20JPR_49(5).pdf"),
-  "which includes the PRIO’s rationale for coding some conflicts or mechanisms in a certain way. 
-  The PRIO defines a “conflict” as any episode with at least 25 annual battle-related deaths, and any “post-conflict” period as 
-  the period lasting up to five years after the end of an internal armed conflict. All other relevant variable definitions will 
-  be provided in their specific tabs. Most importantly, this app is not meant to be taken as a way to explore the causal relationships between a 
-  conflict’s characteristics and its PCJ mechanisms, but to make PCJ mechanisms easier to identify, explore, and use in other 
-  analyses."
+  "which includes the PRIO’s rationale for coding some conflicts or mechanisms in a certain way. ",
+  strong("The PRIO defines a “conflict” as any episode with at least 25 annual battle-related deaths, and any “post-conflict” period as 
+  the period lasting up to five years after the end of an internal armed conflict."), "All other relevant variable definitions will 
+  be provided in their specific tabs. Furthermore, while the mechanisms explored are the most common, there are other ways societies have 
+reckoned following periods of conflict, which aren't included here, such as memorials, certain works of art, 
+public service works, and more. This app is not meant to be exhaustive on all actions inspired by the ideals usually espoused in transitional 
+justice, or all actions by civil society and government to deal with a difficult past. Most importantly, this app is not meant to be taken 
+as a way to explore the causal relationships between a conflict’s characteristics and its PCJ mechanisms, 
+but to make the most usual PCJ mechanisms easier to identify, explore, and use in other analyses."
   ),
   box(
     title = "Further Reading",
@@ -100,16 +114,60 @@ fluidRow(box(
 "from Paris' SciencesPo. For a more detailed exploration behind the technical aspects of this project, consult", 
 a("this GitHub repository.", href = "https://github.com/sofiacorzo/finalproject")
   ))),
-      
-       tabItem(tabName = "tj_glance"),
 
+################################### TRANSITIONAL JUSTICE AT A GLANCE ######################################
 
+# The "Transitional Justice at a Glance" tab contains no interactivity, mainly
+# because it is meant to be a way to introduce the dataset as a whole. All other
+# subsequent tabs will contain interactive inputs.
+       tabItem(tabName = "tj_glance",
+               h4(strong("Some of the basic descriptive attributes of the PCJ data:")),
+               br(),
+               fluidRow(
+                 valueBox(
+                   251, "Unique conflict episodes",
+                   color = "teal",
+                   icon = icon("glyphicon-alert", lib = "glyphicon")),
+                 valueBox(
+                   154, "of those conflict episodes resulted in at least one post-conflict justice mechanism.",
+                   color = "aqua",
+                   icon = icon("angle-double-right", lib = "font-awesome")
+                 ),
+                 valueBox(
+                   111, "Locations",
+                   color = "light-blue",
+                   icon = icon("map-marker-alt", lib = "font-awesome"))),
+               fluidRow(
+                 valueBox(
+                   78, "Trials",
+                   color = "green",
+                   icon = icon("balance-scale", lib = "font-awesome")),
+                 valueBox(9, "Truth commissions",
+                          color = "olive",
+                          icon = icon("comments", lib = "font-awesome")),
+                 valueBox(21, "Reparations",
+                          color = "navy",
+                          icon = icon("hand-holding-usd", lib = "font-awesome")),
+                 valueBox(73, "amnesty processes implemented",
+                          color = "yellow",
+                          icon = icon("flag", lib = "font-awesome")),
+                 valueBox(15, "purges",
+                          color = "orange",
+                          icon = icon("user-slash", lib = "font-awesome")),
+                 valueBox(39, "conflict episodes resulted in exiles.",
+                          color = "red",
+                          icon = icon("plane-departure", lib = "font-awesome"))),
+               br(),
+               h4(strong("To explore the specifics of each conflict mechanism, clik on the sidebar!"))),
+
+########################################## PCJ MECHANISM TABS ####################################################
 # All tabs regarding PCJ mechanisms follow a similar structure, where there is a
 # tab box that allows users to define conflict parameters, then actor
 # parameters, and then mechanism-specific parameters. All tabs also include a
 # basic definition of what the PCJ mechanism is, directly from the PCJ codebook.
        
-       # Trials
+################################## TRIALS ###########################################
+
        tabItem(tabName = "trials_tab",
                h4(strong("'The formal examination of alleged wrongdoing through judicial proceedings within a legal structure'"), "(PCJ Codebook, 2012)."),
                br(),
@@ -118,12 +176,31 @@ a("this GitHub repository.", href = "https://github.com/sofiacorzo/finalproject"
                         height = "250px",
                         selected = "Conflict",
                         id = "tabset1",
+                        
+                        #### CONFLICT SPECIFICATIONS ### 
+                        
+                        #All users will select the conflict specifications first
+                        #for their data, as it includes the most general and
+                        #least technical data (such as conflict year or region).
+                        #In the "PCJ_ALL_clean tbl", most of these
+                        #conflict-related variables can be easily identified as
+                        #they start with "conflict_". Process-specific variables
+                        #will follow.
+                        
                         tabPanel("Conflict",
                                           sliderInput("conflict_date_trial",
                                                       label = "Conflict Episode Date",
                                                       min(trials_data$conflict_episode_begins), max(trials_data$conflict_episode_ends),
                                                       value = c(1950, 1980),
                                                       sep =""),
+                      
+                      # A lot of the "selectInput" options will contain an
+                      # additional "All" option created through the "choices"
+                      # argument. I decided to do this to have an easy option
+                      # for users to look at all data first, and then start
+                      # specifying more parameters as they go. It is also useful
+                      # for purposes of interactivity (see server comments).
+                      
                                           selectInput("region_trial",
                                                       label = "Region",
                                                       choices = c("All", levels(trials_data$region)),
@@ -149,6 +226,11 @@ a("this GitHub repository.", href = "https://github.com/sofiacorzo/finalproject"
                                                        choices = levels(trials_data$civil_war),
                                                        selected = "No"),
                                           h6(helpText("Civil war is defined as at least 1000 battle-related deaths for the duration of the conflict episode."))),
+                      
+                      #### TRIAL ACTORS #######
+                      
+                      # Variables included are trial sender, target, and scope.
+                      
                                  tabPanel("Trial Actors",
                                  checkboxGroupInput("trial_sender",
                                                     label = "Trial sender",
@@ -169,6 +251,13 @@ a("this GitHub repository.", href = "https://github.com/sofiacorzo/finalproject"
                                  h6(helpText("The scope of the trial is defined by the amount of people it affected or reached, 
                                              specifically which groups or individuals were targeted throughout the process. This can range from single individuals (a certain general)
                                              to elites (rebel leaders) or a specific group(such as the military)."))),
+                      
+                      ##### TRIAL CHARACTERISTICS #####
+                      
+                      # Variables included are trial setting, trials to people
+                      # in absentia, trials involving executions, and breaches
+                      # of justice.
+                    
                         tabPanel("Trial Characteristics",
                                  checkboxGroupInput("trial_setting",
                                                     label = "Trial setting:",
@@ -194,15 +283,35 @@ a("this GitHub repository.", href = "https://github.com/sofiacorzo/finalproject"
                                              that was undertaken with weak legal standards or a
                                              deliberate breach of justice. For example, summary trials without due
                                              process, etc.")))),
+                  
+              ########### TRIALS TABLE ##########
                    box(title = "TABLE",
                        status = "info",
                        solidHeader = TRUE,
                               DTOutput("trials_table", width = "50%"),
+                       
+                  # Aside from generating a data table based on specific inputs,
+                  # users will also be able to download the data table that they
+                  # created (with all variables included, not just those seen on
+                  # the table). The updating is done on the server side.
+                  
                        downloadButton("download_trial", label = "Download Table")))))))
                  
 
+########################################## SERVER #########################################################
 
 server <- function(input, output) {
+  
+    ############# TRIALS SUBSETTING ############
+
+  # I went through several different methods to try to subset the data as
+  # cleanly as I could so users could select any and all input options and
+  # create a unique data table. While I recognize that using a reactive function
+  # would have probably been more efficient, after several failed attempts I
+  # used a process that worked for all the inputs, making sure that inputs were
+  # both dependent on other selected inputs but could also revert back to the
+  # table's original setup if needed.
+  
    output$trials_table <- renderDT({
     data <- trials_data
     data <- subset(
@@ -254,6 +363,15 @@ server <- function(input, output) {
       rename(start_year = conflict_episode_begins,
              end_year = conflict_episode_ends) %>%
       select(start_year, end_year, location, government, opposition)})
+  
+   ############## DOWNLOAD TRIALS DATA  #################
+
+# The next several lines are a direct copy-paste of the subsetting trials
+# section, as I want the downloaded data to also represent what the user has
+# selected. After searching for several options to have to work around this, I
+# decided to leave this as is as it also allows any person who would want to
+# explore this code to see exactly how the data is subsetted to generate the
+# data file, not only the table.
    
    output$download_trial <- downloadHandler("trials.csv", content = function(file){
      data <- trials_data
